@@ -1,4 +1,4 @@
-package aosp.sdk.mad
+package aosp.sdk.mad.store.local
 
 import android.content.SharedPreferences
 

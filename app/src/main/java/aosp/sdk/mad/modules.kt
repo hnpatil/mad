@@ -1,10 +1,12 @@
 package aosp.sdk.mad
 
 import android.content.Context
-import androidx.lifecycle.SavedStateHandle
-import androidx.room.Room
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.GlobalScope
+import aosp.sdk.mad.store.StocksRepo
+import aosp.sdk.mad.store.local.DB
+import aosp.sdk.mad.store.local.FileStore
+import aosp.sdk.mad.store.local.Preferences
+import aosp.sdk.mad.store.remote.PolygonService
+import aosp.sdk.mad.vm.StocksVM
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -23,10 +25,14 @@ val appModule = module {
     }
 
     single {
-        StocksRepo((get() as PolygonService).getService(), get(), get())
+        FileStore(get())
+    }
+
+    single {
+        StocksRepo((get() as PolygonService).getService(), get(), get(), get())
     }
 
     viewModel {
-        StocksVM(it.get<SavedStateHandle>() as SavedStateHandle, get(), get(), GlobalScope)
+        StocksVM(get(), get())
     }
 }

@@ -1,14 +1,11 @@
 package aosp.sdk.mad
 
 import android.os.Bundle
-import android.os.Handler
-import android.util.Log
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import aosp.sdk.mad.vm.StocksVM
 import org.koin.androidx.viewmodel.ext.android.stateViewModel
 
 class MainActivity : AppCompatActivity() {

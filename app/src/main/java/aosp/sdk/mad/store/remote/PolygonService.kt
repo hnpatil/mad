@@ -1,4 +1,4 @@
-package aosp.sdk.mad
+package aosp.sdk.mad.store.remote
 
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

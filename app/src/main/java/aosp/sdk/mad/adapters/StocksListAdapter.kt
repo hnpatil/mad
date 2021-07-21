@@ -1,4 +1,4 @@
-package aosp.sdk.mad
+package aosp.sdk.mad.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,6 +7,9 @@ import androidx.databinding.ViewDataBinding
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import aosp.sdk.mad.BR
+import aosp.sdk.mad.R
+import aosp.sdk.mad.store.data.Ticker
 
 class StocksListAdapter(private val callback: (Ticker) -> Unit)
     : PagingDataAdapter<Ticker, StocksListAdapter.StockHolder>(TickerComparator) {

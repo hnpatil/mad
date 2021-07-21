@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/stocksListFragment"
-        android:name="aosp.sdk.mad.StocksListFragment"
+        android:name="aosp.sdk.mad.fragments.StocksListFragment"
         android:label="fragment_stocks_list"
         tools:layout="@layout/fragment_stocks_list" >
         <action
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/stockDetailFragment"
-        android:name="aosp.sdk.mad.StockDetailFragment"
+        android:name="aosp.sdk.mad.fragments.StockDetailFragment"
         android:label="fragment_stock_detail"
         tools:layout="@layout/fragment_stock_detail" />
 </navigation>

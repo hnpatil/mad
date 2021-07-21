@@ -1,4 +1,4 @@
-package aosp.sdk.mad
+package aosp.sdk.mad.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,6 +8,9 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
+import aosp.sdk.mad.BR
+import aosp.sdk.mad.R
+import aosp.sdk.mad.vm.StocksVM
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class StockDetailFragment : Fragment() {

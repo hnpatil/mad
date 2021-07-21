@@ -1,16 +1,14 @@
-package aosp.sdk.mad
+package aosp.sdk.mad.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
+import aosp.sdk.mad.R
+import aosp.sdk.mad.vm.StocksVM
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class StocksListFragment : Fragment() {

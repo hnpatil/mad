@@ -1,26 +1,28 @@
-package aosp.sdk.mad
+package aosp.sdk.mad.vm
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import kotlinx.coroutines.CoroutineScope
+import aosp.sdk.mad.adapters.StocksListAdapter
+import aosp.sdk.mad.adapters.TickerPagingSource
+import aosp.sdk.mad.store.StocksRepo
+import aosp.sdk.mad.store.data.Ticker
+import aosp.sdk.mad.store.data.TickerDetail
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class StocksVM(
-    private val savedStateHandle: SavedStateHandle,
     application: Application,
-    private val stocksRepo: StocksRepo,
-    private val viewModelScope: CoroutineScope
+    private val stocksRepo: StocksRepo
 ) : AndroidViewModel(application) {
 
     private val tickerStream = Pager(PagingConfig(10)) { TickerPagingSource(stocksRepo, 10) }.flow
     val adapter = StocksListAdapter { ticker: Ticker -> updateSelectedTicker(ticker)}
 
-    val selectedTicker: MutableLiveData<Ticker> get() = savedStateHandle.getLiveData("selectedTicker", null)
+    val selectedTicker: MutableLiveData<Ticker> = MutableLiveData()
     val tickerDetail: MutableLiveData<TickerDetail> = MutableLiveData()
     val loadingTickerDetail = MutableLiveData<Boolean>(false)
 
@@ -30,15 +32,13 @@ class StocksVM(
 
     fun updateSelectedTicker(ticker: Ticker?) {
         selectedTicker.value = ticker
-        fetchTickerDetail(ticker?.ticker)
+        viewModelScope.launch { fetchTickerDetail(ticker?.ticker) }
     }
 
-    private fun fetchTickerDetail(ticker: String?) {
-        viewModelScope.launch {
-            loadingTickerDetail.postValue(true)
-            val details = if(ticker== null) null else  stocksRepo.getTickerDetail(ticker)
-            loadingTickerDetail.postValue(false)
-            tickerDetail.postValue(details)
-        }
+    private suspend fun fetchTickerDetail(ticker: String?) {
+        loadingTickerDetail.value = true
+        val details = if(ticker== null) null else  stocksRepo.getTickerDetail(ticker)
+        loadingTickerDetail.value = false
+        tickerDetail.value = details
     }
 }
